@@ -2,8 +2,12 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const errorMiddleware = require("./middlewares/error");
-const auth = require("./routes/auth");
-
+const admin = require("../backend/routes/admin");
+const auth = require("../backend/routes/auth");
+const theatre = require("../backend/routes/theatre");
+const show = require("../backend/routes/show");
+const movie = require("../backend/routes/movie");
+const booking = require("../backend/routes/booking");
 const cookieParser = require("cookie-parser");
 
 app.use(express.json());
@@ -15,10 +19,11 @@ app.use(
   })
 );
 
-// app.use("/api", products);
 app.use("/api", auth);
-// app.use("/api", chat);
-// app.use("/api", cart);
+app.use("/api", admin);
+app.use("/api", theatre);
+app.use("/api/show", show);
+app.use("/api/booking", booking);
 
 app.use(errorMiddleware);
 app.set("trust proxy", 1);

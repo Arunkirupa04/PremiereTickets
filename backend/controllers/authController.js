@@ -8,6 +8,14 @@ const { log } = require("console");
 
 exports.registerUser = catchAsyncError(async (req, res, next) => {
   const { firstName, lastName, email, password, avatar } = req.body;
+
+  const existingUser = await User.findOne({ email });
+  if (existingUser) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Email already registered" });
+  }
+
   const user = await User.create({
     firstName,
     lastName,
