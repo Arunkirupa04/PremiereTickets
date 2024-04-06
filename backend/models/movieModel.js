@@ -14,6 +14,10 @@ const movieSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please enter the movie genre"],
     },
+    language: {
+      type: String,
+      required: [true, "Please enter the movie language"],
+    },
     releaseDate: {
       type: Date,
       required: [true, "Please enter the movie release date"],
@@ -26,10 +30,9 @@ const movieSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    admin: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Admin", // Reference to the admin who added the movie
-      required: true,
+    Isreleased: {
+      type: Boolean,
+      default: true,
     },
   },
   { timestamps: true }

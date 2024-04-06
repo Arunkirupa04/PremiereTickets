@@ -2,24 +2,7 @@ const Movie = require("../models/movieModel");
 const catchAsyncError = require("../middlewares/catchAsyncError");
 
 // Function to create a new movie
-exports.createMovie = catchAsyncError(async (req, res) => {
-  const { title, description, genre, releaseDate, posterURL, featured, admin } =
-    req.body;
-  const movie = await Movie.create({
-    title,
-    description,
-    genre,
-    releaseDate,
-    posterURL,
-    featured,
-    admin,
-  });
-  res.status(201).json({ success: true, data: movie });
-});
-
-// Function to update a movie by ID
-exports.updateMovie = catchAsyncError(async (req, res) => {
-  const { id } = req.params;
+exports.createMovie = catchAsyncError(async (req, res, next) => {
   const {
     title,
     description,
@@ -27,8 +10,35 @@ exports.updateMovie = catchAsyncError(async (req, res) => {
     releaseDate,
     posterURL,
     featured,
+    language,
+    Isreleased,
+  } = req.body;
+  const movie = await Movie.create({
+    title,
+    description,
+    genre,
+    language,
+    Isreleased,
+    releaseDate,
+    posterURL,
+    featured,
+  });
+  res.status(201).json({ success: true, data: movie });
+});
+
+// Function to update a movie by ID
+exports.updateMovie = catchAsyncError(async (req, res, next) => {
+  const { id } = req.params;
+  const {
+    title,
+    description,
+    genre,
+    language,
+    Isreleased,
+    releaseDate,
+    posterURL,
+    featured,
     availableScreens,
-    admin,
   } = req.body;
   const movie = await Movie.findByIdAndUpdate(
     id,
@@ -36,11 +46,12 @@ exports.updateMovie = catchAsyncError(async (req, res) => {
       title,
       description,
       genre,
+      language,
       releaseDate,
       posterURL,
       featured,
+      Isreleased,
       availableScreens,
-      admin,
     },
     {
       new: true,
@@ -54,7 +65,7 @@ exports.updateMovie = catchAsyncError(async (req, res) => {
 });
 
 // Function to delete a movie by ID
-exports.deleteMovie = catchAsyncError(async (req, res) => {
+exports.deleteMovie = catchAsyncError(async (req, res, next) => {
   const { id } = req.params;
   const movie = await Movie.findByIdAndDelete(id);
   if (!movie) {
@@ -64,7 +75,29 @@ exports.deleteMovie = catchAsyncError(async (req, res) => {
 });
 
 // Function to get all movies
-exports.getAllMovies = catchAsyncError(async (req, res) => {
+exports.getAllMovies = catchAsyncError(async (req, res, next) => {
   const movies = await Movie.find();
+  res.status(200).json({ success: true, data: movies });
+});
+
+//filter movies from database
+exports.filterMovies = catchAsyncError(async (req, res, next) => {
+  const { genre, isReleased, language } = req.query;
+
+  let query = {};
+
+  // Add filters based on query parameters
+  if (genre) {
+    query.genre = genre;
+  }
+  if (isReleased) {
+    query.Isreleased = isReleased;
+  }
+  if (language) {
+    query.language = language;
+  }
+
+  const movies = await Movie.find(query);
+
   res.status(200).json({ success: true, data: movies });
 });

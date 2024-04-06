@@ -21,8 +21,8 @@ app.use(
 
 app.use("/api", auth);
 app.use("/api", admin);
-app.use("/api", theatre);
-app.use("/api/show", show);
+app.use("/api/theatre", theatre);
+app.use("/api/movie", movie);
 app.use("/api/booking", booking);
 
 app.use(errorMiddleware);

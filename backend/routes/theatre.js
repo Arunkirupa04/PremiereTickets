@@ -6,11 +6,24 @@ const {
   deleteTheatre,
   getAllTheatres,
 } = require("../controllers/theatreController");
+const {
+  createShow,
+  getAllShowsForTheatre,
+  getShowForTheatre,
+  updateShowForTheatre,
+  deleteShowForTheatre,
+  getTheatresWithMovie,
+} = require("../controllers/showController");
 
 // Routes for theatres
-router.route("/theatre/").post(createTheatre); // Create a new theatre
-router.route("/theatre/:id").put(updateTheatre); // Update a theatre by ID
-router.route("/theatre/:id").delete(deleteTheatre); // Delete a theatre by ID
-router.route("/theatre/").get(getAllTheatres); // Get all theatres
-
+router.route("/").post(createTheatre); // Create a new theatre
+router.route("/:id").delete(deleteTheatre); // Delete a theatre by ID
+router.route("/").get(getAllTheatres); // Get all theatres
+router.route("/:id").put(updateTheatre); // Update a theatre by ID
+router.route("/:theatreId/shows").post(createShow);
+router.route("/:theatreId/shows").get(getAllShowsForTheatre);
+router.route("/:theatreId/shows/:showId").get(getShowForTheatre);
+router.route("/:theatreId/shows/:showId").put(updateShowForTheatre);
+router.route("/:theatreId/shows/:showId").delete(deleteShowForTheatre);
+router.route("/filter/:movieId").get(getTheatresWithMovie);
 module.exports = router;
