@@ -1,0 +1,167 @@
+[
+  {
+    "_id": "1",
+    "title": "Movie 1",
+    "description": "Description for Movie 1",
+    "genre": "Action",
+    "language": "English",
+    "releaseDate": "2022-01-01",
+    "posterURL": "https://example.com/poster1.jpg",
+    "featured": false,
+    "Isreleased": true
+  },
+  {
+    "_id": "2",
+    "title": "Movie 2",
+    "description": "Description for Movie 2",
+    "genre": "Comedy",
+    "language": "English",
+    "releaseDate": "2022-02-01",
+    "posterURL": "https://example.com/poster2.jpg",
+    "featured": true,
+    "Isreleased": true
+  },
+  {
+    "_id": "3",
+    "title": "Movie 3",
+    "description": "Description for Movie 3",
+    "genre": "Drama",
+    "language": "English",
+    "releaseDate": "2022-03-01",
+    "posterURL": "https://example.com/poster3.jpg",
+    "featured": false,
+    "Isreleased": true
+  },
+  {
+    "_id": "4",
+    "title": "Movie 4",
+    "description": "Description for Movie 4",
+    "genre": "Thriller",
+    "language": "English",
+    "releaseDate": "2022-04-01",
+    "posterURL": "https://example.com/poster4.jpg",
+    "featured": true,
+    "Isreleased": true
+  },
+  {
+    "_id": "5",
+    "title": "Movie 5",
+    "description": "Description for Movie 5",
+    "genre": "Action",
+    "language": "English",
+    "releaseDate": "2022-05-01",
+    "posterURL": "https://example.com/poster5.jpg",
+    "featured": false,
+    "Isreleased": true
+  },
+  {
+    "_id": "6",
+    "title": "Movie 6",
+    "description": "Description for Movie 6",
+    "genre": "Comedy",
+    "language": "English",
+    "releaseDate": "2022-06-01",
+    "posterURL": "https://example.com/poster6.jpg",
+    "featured": true,
+    "Isreleased": true
+  },
+  {
+    "_id": "7",
+    "title": "Movie 7",
+    "description": "Description for Movie 7",
+    "genre": "Drama",
+    "language": "English",
+    "releaseDate": "2022-07-01",
+    "posterURL": "https://example.com/poster7.jpg",
+    "featured": false,
+    "Isreleased": true
+  },
+  {
+    "_id": "8",
+    "title": "Movie 8",
+    "description": "Description for Movie 8",
+    "genre": "Thriller",
+    "language": "English",
+    "releaseDate": "2022-08-01",
+    "posterURL": "https://example.com/poster8.jpg",
+    "featured": true,
+    "Isreleased": true
+  },
+  {
+    "_id": "9",
+    "title": "Movie 9",
+    "description": "Description for Movie 9",
+    "genre": "Action",
+    "language": "English",
+    "releaseDate": "2022-09-01",
+    "posterURL": "https://example.com/poster9.jpg",
+    "featured": false,
+    "Isreleased": true
+  },
+  {
+    "_id": "10",
+    "title": "Movie 10",
+    "description": "Description for Movie 10",
+    "genre": "Comedy",
+    "language": "English",
+    "releaseDate": "2022-10-01",
+    "posterURL": "https://example.com/poster10.jpg",
+    "featured": true,
+    "Isreleased": true
+  },
+  {
+    "_id": "11",
+    "title": "Movie 11",
+    "description": "Description for Movie 11",
+    "genre": "Drama",
+    "language": "English",
+    "releaseDate": "2022-11-01",
+    "posterURL": "https://example.com/poster11.jpg",
+    "featured": false,
+    "Isreleased": true
+  },
+  {
+    "_id": "12",
+    "title": "Movie 12",
+    "description": "Description for Movie 12",
+    "genre": "Thriller",
+    "language": "English",
+    "releaseDate": "2022-12-01",
+    "posterURL": "https://example.com/poster12.jpg",
+    "featured": true,
+    "Isreleased": true
+  },
+  {
+    "_id": "13",
+    "title": "Movie 13",
+    "description": "Description for Movie 13",
+    "genre": "Action",
+    "language": "English",
+    "releaseDate": "2023-01-01",
+    "posterURL": "https://example.com/poster13.jpg",
+    "featured": false,
+    "Isreleased": true
+  },
+  {
+    "_id": "14",
+    "title": "Movie 14",
+    "description": "Description for Movie 14",
+    "genre": "Comedy",
+    "language": "English",
+    "releaseDate": "2023-02-01",
+    "posterURL": "https://example.com/poster14.jpg",
+    "featured": true,
+    "Isreleased": true
+  },
+  {
+    "_id": "15",
+    "title": "Movie 15",
+    "description": "Description for Movie 15",
+    "genre": "Drama",
+    "language": "English",
+    "releaseDate": "2023-03-01",
+    "posterURL": "https://example.com/poster15.jpg",
+    "featured": false,
+    "Isreleased": true
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "_id": "1",
+    "name": "Sunset Theatre",
+    "location": "New York",
+    "capacity": 200,
+    "ticketPrice": 10,
+    "showTimes": ["10:00 AM", "1:00 PM", "4:00 PM"]
+  },
+  {
+    "_id": "2",
+    "name": "Starlight Cinema",
+    "location": "Los Angeles",
+    "capacity": 150,
+    "ticketPrice": 12,
+    "showTimes": ["11:00 AM", "2:00 PM", "5:00 PM"]
+  },
+  {
+    "_id": "3",
+    "name": "Moonlight Theatre",
+    "location": "Chicago",
+    "capacity": 180,
+    "ticketPrice": 11,
+    "showTimes": ["9:00 AM", "12:00 PM", "3:00 PM"]
+  },
+  {
+    "_id": "4",
+    "name": "Royal Cinema",
+    "location": "Houston",
+    "capacity": 220,
+    "ticketPrice": 14,
+    "showTimes": ["10:30 AM", "1:30 PM", "4:30 PM"]
+  },
+  {
+    "_id": "5",
+    "name": "Golden Theatre",
+    "location": "Miami",
+    "capacity": 190,
+    "ticketPrice": 13,
+    "showTimes": ["11:30 AM", "2:30 PM", "5:30 PM"]
+  },
+  {
+    "_id": "6",
+    "name": "Silver Screen Cinema",
+    "location": "San Francisco",
+    "capacity": 170,
+    "ticketPrice": 11,
+    "showTimes": ["9:30 AM", "12:30 PM", "3:30 PM"]
+  },
+  {
+    "_id": "7",
+    "name": "Palm Theatre",
+    "location": "Orlando",
+    "capacity": 210,
+    "ticketPrice": 12,
+    "showTimes": ["10:15 AM", "1:15 PM", "4:15 PM"]
+  },
+  {
+    "_id": "8",
+    "name": "Lighthouse Cinema",
+    "location": "Seattle",
+    "capacity": 160,
+    "ticketPrice": 15,
+    "showTimes": ["11:15 AM", "2:15 PM", "5:15 PM"]
+  },
+  {
+    "_id": "9",
+    "name": "Ocean View Theatre",
+    "location": "San Diego",
+    "capacity": 200,
+    "ticketPrice": 13,
+    "showTimes": ["9:45 AM", "12:45 PM", "3:45 PM"]
+  },
+  {
+    "_id": "10",
+    "name": "Empire Cinema",
+    "location": "Austin",
+    "capacity": 180,
+    "ticketPrice": 14,
+    "showTimes": ["10:45 AM", "1:45 PM", "4:45 PM"]
+  },
+  {
+    "_id": "11",
+    "name": "Regal Theatre",
+    "location": "Atlanta",
+    "capacity": 190,
+    "ticketPrice": 12,
+    "showTimes": ["11:45 AM", "2:45 PM", "5:45 PM"]
+  },
+  {
+    "_id": "12",
+    "name": "Majestic Cinema",
+    "location": "Boston",
+    "capacity": 210,
+    "ticketPrice": 11,
+    "showTimes": ["9:15 AM", "12:15 PM", "3:15 PM"]
+  },
+  {
+    "_id": "13",
+    "name": "Grand Theatre",
+    "location": "Denver",
+    "capacity": 220,
+    "ticketPrice": 13,
+    "showTimes": ["10:15 AM", "1:15 PM", "4:15 PM"]
+  },
+  {
+    "_id": "14",
+    "name": "Victory Cinema",
+    "location": "Las Vegas",
+    "capacity": 180,
+    "ticketPrice": 12,
+    "showTimes": ["11:30 AM", "2:30 PM", "5:30 PM"]
+  },
+  {
+    "_id": "15",
+    "name": "Palace Theatre",
+    "location": "Philadelphia",
+    "capacity": 200,
+    "ticketPrice": 14,
+    "showTimes": ["9:45 AM", "12:45 PM", "3:45 PM"]
+  }
+]

@@ -1,0 +1,144 @@
+[
+  {
+    "id": "1",
+    "name": "Sunset Cinema",
+    "location": "Downtown",
+    "capacity": 200,
+    "ticketPrice": 12.5,
+    "movies": [
+      {
+        "id": "1",
+        "name": "Sunset Romance",
+        "genre": "Romance",
+        "language": "English",
+        "releaseDate": "2024-05-15",
+        "posterURL": "https://example.com/sunset_romance.jpg"
+      },
+      {
+        "id": "2",
+        "name": "Sunset Adventure",
+        "genre": "Action",
+        "language": "English",
+        "releaseDate": "2024-07-20",
+        "posterURL": "https://example.com/sunset_adventure.jpg"
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "name": "Starlight Theatre",
+    "location": "Uptown",
+    "capacity": 150,
+    "ticketPrice": 10.0,
+    "movies": [
+      {
+        "id": "3",
+        "name": "Starlight Comedy",
+        "genre": "Comedy",
+        "language": "English",
+        "releaseDate": "2024-06-10",
+        "posterURL": "https://example.com/starlight_comedy.jpg"
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "name": "Royal Cinemas",
+    "location": "City Center",
+    "capacity": 250,
+    "ticketPrice": 15.0,
+    "movies": [
+      {
+        "id": "4",
+        "name": "Royal Drama",
+        "genre": "Drama",
+        "language": "English",
+        "releaseDate": "2024-08-05",
+        "posterURL": "https://example.com/royal_drama.jpg"
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "name": "Golden Palace",
+    "location": "Midtown",
+    "capacity": 180,
+    "ticketPrice": 11.5,
+    "movies": []
+  },
+  {
+    "id": "5",
+    "name": "Silver Screen Cinema",
+    "location": "Waterfront",
+    "capacity": 220,
+    "ticketPrice": 13.0,
+    "movies": [
+      {
+        "id": "5",
+        "name": "Silver Screen Thriller",
+        "genre": "Thriller",
+        "language": "English",
+        "releaseDate": "2024-09-15",
+        "posterURL": "https://example.com/silver_screen_thriller.jpg"
+      }
+    ]
+  },
+  {
+    "id": "6",
+    "name": "Prestige Theatre",
+    "location": "Hillside",
+    "capacity": 190,
+    "ticketPrice": 12.0,
+    "movies": []
+  },
+  {
+    "id": "7",
+    "name": "Grand View Cinema",
+    "location": "Suburbs",
+    "capacity": 210,
+    "ticketPrice": 13.5,
+    "movies": []
+  },
+  {
+    "id": "8",
+    "name": "Majestic Movies",
+    "location": "Downtown",
+    "capacity": 200,
+    "ticketPrice": 12.5,
+    "movies": [
+      {
+        "id": "6",
+        "name": "Majestic Mystery",
+        "genre": "Mystery",
+        "language": "English",
+        "releaseDate": "2024-10-20",
+        "posterURL": "https://example.com/majestic_mystery.jpg"
+      }
+    ]
+  },
+  {
+    "id": "9",
+    "name": "Regal Theatre",
+    "location": "City Center",
+    "capacity": 230,
+    "ticketPrice": 14.0,
+    "movies": []
+  },
+  {
+    "id": "10",
+    "name": "Oasis Cinema",
+    "location": "Beachfront",
+    "capacity": 170,
+    "ticketPrice": 11.0,
+    "movies": [
+      {
+        "id": "7",
+        "name": "Oasis Adventure",
+        "genre": "Adventure",
+        "language": "English",
+        "releaseDate": "2024-11-05",
+        "posterURL": "https://example.com/oasis_adventure.jpg"
+      }
+    ]
+  }
+]

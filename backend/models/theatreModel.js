@@ -6,6 +6,10 @@ const theatreSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please enter the theatre name"],
     },
+    location: {
+      type: String,
+      required: [true, "Please enter the theatre location"],
+    },
     capacity: {
       type: Number,
       required: [true, "Please enter the theatre capacity"],

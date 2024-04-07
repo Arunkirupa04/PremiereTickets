@@ -4,9 +4,10 @@ const ErrorHandler = require("../utils/errorHandler");
 
 // Function to create a new theatre
 exports.createTheatre = catchAsyncError(async (req, res, next) => {
-  const { name, capacity, ticketPrice, showTimes } = req.body;
+  const { name, capacity, ticketPrice, showTimes, location } = req.body;
   const theatre = await Theatre.create({
     name,
+    location,
     capacity,
     ticketPrice,
     showTimes,
@@ -17,10 +18,10 @@ exports.createTheatre = catchAsyncError(async (req, res, next) => {
 // Function to update a theatre by ID
 exports.updateTheatre = catchAsyncError(async (req, res, next) => {
   const { id } = req.params;
-  const { name, capacity, ticketPrice, showTimes } = req.body;
+  const { name, location, capacity, ticketPrice, showTimes } = req.body;
   const theatre = await Theatre.findByIdAndUpdate(
     id,
-    { name, capacity, ticketPrice, showTimes },
+    { name, location, capacity, ticketPrice, showTimes },
     {
       new: true,
       runValidators: true,
