@@ -104,6 +104,7 @@ const Theatres = () => {
           Create New Theatre
         </Button>
       </Stack>
+
       <Dialog open={isModalOpen} onClose={handleCloseModal}>
         <DialogTitle>Add New Theatre</DialogTitle>
         <DialogContent>

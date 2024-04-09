@@ -57,14 +57,14 @@ const AdminDashboard = () => {
             </Box>
             <List>
               {[
-                { text: "Dashboard", icon: <DashboardIcon />, path: "/" },
+                { text: "Dashboard", icon: <DashboardIcon />, path: "/admin" },
                 {
                   text: "Theatres",
                   icon: <LocalMoviesIcon />,
-                  path: "/theatres",
+                  path: "admin/theatres",
                 },
-                { text: "Movies", icon: <MovieIcon />, path: "/movies" },
-                { text: "Shows", icon: <BookIcon />, path: "/shows" },
+                { text: "Movies", icon: <MovieIcon />, path: "admin/movies" },
+                { text: "Shows", icon: <BookIcon />, path: "admin/shows" },
               ].map((item, index) => (
                 <ListItem
                   key={index}
@@ -90,10 +90,10 @@ const AdminDashboard = () => {
             <Toolbar />
 
             <Routes>
-              <Route exact path="/" element={<Dashboard />} />
-              <Route path="/theatres" element={<Theatres />} />
-              <Route path="/movies" element={<Movies />} />
-              <Route path="/shows" element={<Shows />} />
+              <Route exact path="/admin/" element={<Dashboard />} />
+              <Route path="/admin/theatres" element={<Theatres />} />
+              <Route path="/admin/movies" element={<Movies />} />
+              <Route path="/admin/shows" element={<Shows />} />
             </Routes>
           </Box>
         </Box>

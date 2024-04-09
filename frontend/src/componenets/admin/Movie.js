@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Card,
@@ -18,16 +18,37 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import MovieForm from "./movieForm";
 import MovieUpdate from "./MovieUpdate";
-import movies from "../../movie.json";
-import { Colors } from "../../theme";
+import {
+  getAllMovies,
+  createMovie,
+  updateMovie,
+  deleteMovie,
+} from "../../actions/admin/movie";
 
 const Movies = () => {
+  const [movies, setMovies] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [openUpdate, setOpenUpdate] = useState(false);
 
+  useEffect(() => {
+    fetchMovies();
+  }, [isModalOpen]);
+
+  const fetchMovies = async () => {
+    try {
+      const movieData = await getAllMovies();
+      console.log(movieData.data);
+      setMovies(movieData.data);
+    } catch (error) {
+      console.error("Error fetching movies:", error);
+    }
+  };
+
   const handleOpenUpdate = (movie) => {
+    console.log(movie);
     setSelectedMovie(movie);
+    console.log(selectedMovie);
     setOpenUpdate(true);
   };
 
@@ -36,18 +57,37 @@ const Movies = () => {
     setSelectedMovie(null);
   };
 
-  const handleUpdateMovie = (updatedMovie) => {
-    console.log("Updated Movie:", updatedMovie);
-    handleCloseUpdate();
+  const handleUpdateMovie = async (updatedMovie) => {
+    try {
+      await updateMovie(updatedMovie._id, updatedMovie);
+      fetchMovies(); // Fetch movies again to update the list
+      handleCloseUpdate();
+    } catch (error) {
+      console.error("Error updating movie:", error);
+    }
   };
 
-  const handleDelete = (id) => {
-    console.log(`Delete movie with ID: ${id}`);
+  const handleDelete = async (id) => {
+    try {
+      await deleteMovie(id);
+      fetchMovies(); // Fetch movies again to update the list
+    } catch (error) {
+      console.error("Error deleting movie:", error);
+    }
   };
-
   const handleCreateMovie = () => {
     setIsModalOpen(true);
   };
+  // const handleCreateMovie = async (movieData) => {
+  //   try {
+  //     setIsModalOpen(true);
+
+  //     await createMovie(movieData);
+  //     handleCloseModal();
+  //   } catch (error) {
+  //     console.error("Error creating movie:", error);
+  //   }
+  // };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);

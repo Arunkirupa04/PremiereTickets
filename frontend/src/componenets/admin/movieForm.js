@@ -9,14 +9,18 @@ import {
   Grid,
   Box,
 } from "@mui/material";
+import { createMovie } from "../../actions/admin/movie"; // Import the createMovie function
 
 const MovieForm = () => {
   const [formData, setFormData] = useState({
-    name: "",
-    capacity: "",
-    ticketPrice: "",
-    showTimes: [],
-    location: "",
+    title: "",
+    description: "",
+    genre: "",
+    language: "",
+    releaseDate: "",
+    posterURL: "",
+    featured: false,
+    Isreleased: true,
   });
 
   const handleChange = (e) => {
@@ -24,17 +28,26 @@ const MovieForm = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Implement your logic to submit the form data
-    console.log(formData);
+    try {
+      await createMovie(formData); // Call createMovie function with form data
+      console.log("Movie created successfully");
+      // Optionally, you can handle success or navigate to a different page
+    } catch (error) {
+      console.error("Error creating movie:", error);
+      // Optionally, you can show an error message to the user
+    }
     // Reset the form fields after submission
     setFormData({
-      name: "",
-      capacity: "",
-      ticketPrice: "",
-      showTimes: [],
-      location: "",
+      title: "",
+      description: "",
+      genre: "",
+      language: "",
+      releaseDate: "",
+      posterURL: "",
+      featured: false,
+      Isreleased: true,
     });
   };
 
@@ -45,9 +58,9 @@ const MovieForm = () => {
           <Grid item xs={12}>
             <TextField
               fullWidth
-              label="Name"
-              name="name"
-              value={formData.name}
+              label="Title"
+              name="title"
+              value={formData.title}
               onChange={handleChange}
               required
             />
@@ -55,10 +68,9 @@ const MovieForm = () => {
           <Grid item xs={12}>
             <TextField
               fullWidth
-              label="Capacity"
-              name="capacity"
-              type="number"
-              value={formData.capacity}
+              label="Description"
+              name="description"
+              value={formData.description}
               onChange={handleChange}
               required
             />
@@ -66,10 +78,9 @@ const MovieForm = () => {
           <Grid item xs={12}>
             <TextField
               fullWidth
-              label="Ticket Price"
-              name="ticketPrice"
-              type="number"
-              value={formData.ticketPrice}
+              label="Genre"
+              name="genre"
+              value={formData.genre}
               onChange={handleChange}
               required
             />
@@ -77,33 +88,50 @@ const MovieForm = () => {
           <Grid item xs={12}>
             <TextField
               fullWidth
-              label="Location"
-              name="location"
-              value={formData.location}
+              label="Language"
+              name="language"
+              value={formData.language}
+              onChange={handleChange}
+              required
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Release Date"
+              name="releaseDate"
+              type="date"
+              value={formData.releaseDate}
+              onChange={handleChange}
+              required
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Poster URL"
+              name="posterURL"
+              value={formData.posterURL}
               onChange={handleChange}
               required
             />
           </Grid>
           <Grid item xs={12}>
             <FormControl fullWidth>
-              <InputLabel>Show Times</InputLabel>
+              <InputLabel>Featured</InputLabel>
               <Select
-                name="showTimes"
-                multiple
-                value={formData.showTimes}
+                name="featured"
+                value={formData.featured}
                 onChange={handleChange}
-                renderValue={(selected) => selected.join(", ")}
-                required
               >
-                <MenuItem value="Morning">Morning</MenuItem>
-                <MenuItem value="Afternoon">Afternoon</MenuItem>
-                <MenuItem value="Evening">Evening</MenuItem>
+                <MenuItem value={true}>Yes</MenuItem>
+                <MenuItem value={false}>No</MenuItem>
               </Select>
             </FormControl>
           </Grid>
           <Grid item xs={12}>
             <Button type="submit" variant="contained" color="primary">
-              Add Theatre
+              Add Movie
             </Button>
           </Grid>
         </Grid>

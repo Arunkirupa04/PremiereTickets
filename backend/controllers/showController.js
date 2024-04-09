@@ -7,18 +7,37 @@ exports.createShow = catchAsyncError(async (req, res, next) => {
   let { theatreId } = req.params; // Declare theatreId as a variable
   theatreId = theatreId.replace(/\/$/, ""); // Remove trailing backslash if present
 
-  const showData = req.body;
+  const { date, time, theatre, movie } = req.body; // Destructure date, time, theatre, and movie from the request body
 
-  const theatre = await Theatre.findById(theatreId);
-  if (!theatre) {
+  const theatreDoc = await Theatre.findById(theatre);
+  if (!theatreDoc) {
     return res.status(404).json({ success: false, error: "Theatre not found" });
   }
 
-  const show = await Show.create({ ...showData, theatre: theatreId });
-  theatre.shows.push(show._id);
-  await theatre.save();
+  const createdShows = [];
 
-  res.status(201).json({ success: true, data: show });
+  // Check if date and time are arrays, if not, convert them to arrays
+  const datesArray = Array.isArray(date) ? date : [date];
+  const timesArray = Array.isArray(time) ? time : [time];
+
+  // Create shows for each combination of dates and times
+  for (const dateItem of datesArray) {
+    for (const timeItem of timesArray) {
+      const showData = {
+        date: dateItem,
+        time: timeItem,
+        theatre: theatreId,
+        movie,
+      };
+      const show = await Show.create(showData);
+      theatreDoc.shows.push(show._id);
+      createdShows.push(show);
+    }
+  }
+
+  await theatreDoc.save();
+
+  res.status(201).json({ success: true, data: createdShows });
 });
 
 // Function to get all shows for a specific theatre

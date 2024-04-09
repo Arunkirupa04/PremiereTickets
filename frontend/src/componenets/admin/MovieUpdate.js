@@ -7,15 +7,19 @@ import {
   TextField,
   Button,
   Box,
-  Typography, // Import Typography component
+  Typography,
 } from "@mui/material";
 
-const MovieUpdate = ({ theatre, onUpdate, open, onClose }) => {
+const MovieUpdate = ({ movie, onUpdate, open, onClose }) => {
   const [formData, setFormData] = useState({
-    name: theatre.name,
-    capacity: theatre.capacity,
-    ticketPrice: theatre.ticketPrice,
-    showTimes: theatre.showTimes.join(", "),
+    title: movie.title,
+    description: movie.description,
+    genre: movie.genre,
+    language: movie.language,
+    releaseDate: new Date(movie.releaseDate).toISOString().substr(0, 10),
+    posterURL: movie.posterURL,
+    featured: movie.featured,
+    Isreleased: movie.Isreleased,
   });
 
   const handleChange = (e) => {
@@ -24,17 +28,18 @@ const MovieUpdate = ({ theatre, onUpdate, open, onClose }) => {
   };
 
   const handleSubmit = () => {
-    const showTimesArray = formData.showTimes
-      .split(",")
-      .map((time) => time.trim());
-    const updatedTheatre = {
-      ...theatre,
-      name: formData.name,
-      capacity: formData.capacity,
-      ticketPrice: formData.ticketPrice,
-      showTimes: showTimesArray,
+    const updatedMovie = {
+      ...movie,
+      title: formData.title,
+      description: formData.description,
+      genre: formData.genre,
+      language: formData.language,
+      releaseDate: new Date(formData.releaseDate),
+      posterURL: formData.posterURL,
+      featured: formData.featured,
+      Isreleased: formData.Isreleased,
     };
-    onUpdate(updatedTheatre);
+    onUpdate(updatedMovie);
     onClose(); // Close the dialog after updating
   };
 
@@ -42,58 +47,109 @@ const MovieUpdate = ({ theatre, onUpdate, open, onClose }) => {
     <Dialog open={open} onClose={onClose} fullWidth={true}>
       <DialogTitle>
         <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-          Update Theatre Details
+          Update Movie Details
         </Typography>
       </DialogTitle>
       <DialogContent>
         <Box marginBottom={2}>
           <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-            Name
+            Title
           </Typography>
           <TextField
             fullWidth
-            name="name"
-            value={formData.name}
+            name="title"
+            value={formData.title}
             onChange={handleChange}
             required
           />
         </Box>
         <Box marginBottom={2}>
           <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-            Capacity
+            Description
           </Typography>
           <TextField
             fullWidth
-            name="capacity"
-            type="number"
-            value={formData.capacity}
+            name="description"
+            value={formData.description}
             onChange={handleChange}
             required
           />
         </Box>
         <Box marginBottom={2}>
           <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-            Ticket Price
+            Genre
           </Typography>
           <TextField
             fullWidth
-            name="ticketPrice"
-            type="number"
-            value={formData.ticketPrice}
+            name="genre"
+            value={formData.genre}
             onChange={handleChange}
             required
           />
         </Box>
-        <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-          Show Times (comma-separated)
-        </Typography>
-        <TextField
-          fullWidth
-          name="showTimes"
-          value={formData.showTimes}
-          onChange={handleChange}
-          required
-        />
+        <Box marginBottom={2}>
+          <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
+            Language
+          </Typography>
+          <TextField
+            fullWidth
+            name="language"
+            value={formData.language}
+            onChange={handleChange}
+            required
+          />
+        </Box>
+        <Box marginBottom={2}>
+          <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
+            Release Date
+          </Typography>
+          <TextField
+            fullWidth
+            type="date"
+            name="releaseDate"
+            value={formData.releaseDate}
+            onChange={handleChange}
+            required
+          />
+        </Box>
+        <Box marginBottom={2}>
+          <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
+            Poster URL
+          </Typography>
+          <TextField
+            fullWidth
+            name="posterURL"
+            value={formData.posterURL}
+            onChange={handleChange}
+            required
+          />
+        </Box>
+        <Box marginBottom={2}>
+          <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
+            Featured
+          </Typography>
+          <TextField
+            fullWidth
+            type="boolean"
+            name="featured"
+            value={formData.featured}
+            onChange={handleChange}
+            required
+          />
+        </Box>
+        <Box marginBottom={2}>
+          <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
+            Is Released
+          </Typography>
+          <TextField
+            fullWidth
+            type="boolean"
+            name="Isreleased"
+            value={formData.Isreleased}
+            onChange={handleChange}
+            required
+          />
+        </Box>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} color="primary">
