@@ -14,6 +14,7 @@ const {
   updateShowForTheatre,
   deleteShowForTheatre,
   getTheatresWithMovie,
+  getTheatresAndShows,
 } = require("../controllers/showController");
 
 // Routes for theatres
@@ -27,5 +28,7 @@ router.route("/:theatreId/shows/:showId").get(getShowForTheatre);
 router.route("/:theatreId/shows/:showId").put(updateShowForTheatre);
 router.route("/:theatreId/shows/:showId").delete(deleteShowForTheatre);
 router.route("/shows/collection").get(getAllTheatresWithShowsAndMovies);
-router.route("/filter/:movieId").get(getTheatresWithMovie);
+// router.route("/filter/:movieId").get(getTheatresWithMovie);
+router.route("/filterShows/:movieId").get(getTheatresAndShows);
+
 module.exports = router;

@@ -1,11 +1,29 @@
 import React from "react";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { Colors } from "../../theme";
 
-const MovieCard = ({ title, img, language, genre }) => {
+const MovieCard = ({ id, title, img, language, genre }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/showPage/${id}`); // Assuming you want to navigate to a dynamic route
+  };
   return (
     <Card
-      sx={{ width: "280px", height: "400px", padding: "10px" }}
+      sx={{
+        width: "280px",
+        height: "400px",
+        transition: "0.7s ease",
+        padding: "10px",
+        cursor: "pointer",
+        ":hover": {
+          bgcolor: Colors.dovegrey,
+          boxShadow: "0px 10px 33px rgba(0, 0, 0, 0.3)",
+        },
+      }}
       variant="outlined"
+      onClick={handleClick}
     >
       <CardMedia
         component="img"

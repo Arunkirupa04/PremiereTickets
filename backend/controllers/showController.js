@@ -163,3 +163,37 @@ exports.getTheatresWithMovie = catchAsyncError(async (req, res, next) => {
 
   res.status(200).json({ success: true, data: theatres });
 });
+// getTheatresAndShows
+exports.getTheatresAndShows = catchAsyncError(async (req, res, next) => {
+  try {
+    const { movieId } = req.params;
+
+    // Step 1: Fetch shows from the shows collection that are associated with the movieId
+    const shows = await Show.find({ movie: movieId });
+
+    // Step 2 & 3: For each show, find the corresponding theatre and aggregate the results
+    const results = await Promise.all(
+      shows.map(async (show) => {
+        const theatre = await Theatre.findById(show.theatre);
+        if (theatre) {
+          // Return a new object that combines show details with the found theatre
+          return { showDetails: show, theatreDetails: theatre };
+        } else {
+          // If no theatre is found, you might want to handle this case differently.
+          // For now, we'll just return null and filter it out later.
+          return null;
+        }
+      })
+    );
+
+    // Filter out any null values from the results
+    const filteredResults = results.filter((result) => result !== null);
+
+    // Send the combined results as response
+    res.status(200).json({ success: true, data: filteredResults });
+  } catch (error) {
+    // Handle any errors
+    console.error(error); // Log the error for debugging
+    next(error);
+  }
+});

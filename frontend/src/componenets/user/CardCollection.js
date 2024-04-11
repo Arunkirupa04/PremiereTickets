@@ -19,6 +19,7 @@ const MovieRow = ({ movies }) => {
       >
         {movies.map((movie, index) => (
           <MovieCard
+            id={movie._id}
             title={movie.title}
             img={movie.posterURL}
             language={movie.language}

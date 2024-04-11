@@ -105,7 +105,12 @@ const Theatres = () => {
         </Button>
       </Stack>
 
-      <Dialog open={isModalOpen} onClose={handleCloseModal}>
+      <Dialog
+        open={isModalOpen}
+        onClose={handleCloseModal}
+        maxWidth="md"
+        sx={{ width: "100%", height: "100%" }}
+      >
         <DialogTitle>Add New Theatre</DialogTitle>
         <DialogContent>
           <TheatreForm />

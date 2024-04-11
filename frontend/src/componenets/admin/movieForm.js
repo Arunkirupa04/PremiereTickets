@@ -8,8 +8,10 @@ import {
   MenuItem,
   Grid,
   Box,
+  Input,
 } from "@mui/material";
 import { createMovie } from "../../actions/admin/movie"; // Import the createMovie function
+import { uploadImage } from "../../utils/firebase"; // Import the uploadImage function
 
 const MovieForm = () => {
   const [formData, setFormData] = useState({
@@ -24,14 +26,34 @@ const MovieForm = () => {
   });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const { name, value, files } = e.target;
+
+    // Check if the input is a file input
+    if (files) {
+      // Upload the image file
+      handleImageUpload(files[0]);
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
+  };
+
+  const handleImageUpload = async (file) => {
+    try {
+      // Upload the image file to Firebase Storage
+      const imageUrl = await uploadImage(file);
+      // Set the image URL in the form data
+      setFormData({ ...formData, posterURL: imageUrl });
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      // Optionally, you can show an error message to the user
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await createMovie(formData); // Call createMovie function with form data
+      // Create the movie with the form data
+      await createMovie(formData);
       console.log("Movie created successfully");
       // Optionally, you can handle success or navigate to a different page
     } catch (error) {
@@ -107,14 +129,18 @@ const MovieForm = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <TextField
-              fullWidth
-              label="Poster URL"
-              name="posterURL"
-              value={formData.posterURL}
-              onChange={handleChange}
-              required
-            />
+            {/* Customized file input with Material-UI */}
+            <FormControl fullWidth>
+              <InputLabel htmlFor="poster-upload">Poster Image</InputLabel>
+              <Input
+                id="poster-upload"
+                type="file"
+                accept="image/*"
+                onChange={handleChange}
+                name="posterURL"
+                required
+              />
+            </FormControl>
           </Grid>
           <Grid item xs={12}>
             <FormControl fullWidth>

@@ -28,10 +28,19 @@ const theatreSchema = new mongoose.Schema(
         ref: "Show", // Reference to the Show model
       },
     ],
+    seatingPattern: {
+      type: [[Number]], // 2D array to represent seat availability (0 or 1)
+      required: [true, "Please provide the seating pattern"],
+    },
+    footpaths: {
+      type: [Number], // Array of column indices after which footpaths occur
+      required: false, // This can be optional as not all theatres might have footpaths
+    },
     // You can add more attributes as needed
   },
   { timestamps: true }
 );
+
 const Theatre = mongoose.model("Theatre", theatreSchema);
 
 module.exports = Theatre;

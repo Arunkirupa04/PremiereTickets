@@ -36,7 +36,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <Box sx={{}}>
       <Grid container spacing={0}>
         <Grid
           item
@@ -64,7 +64,7 @@ const Home = () => {
           position: "absolute",
           top: 0,
           height: "100vh",
-          backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.9),rgba(255,255,255,0.9),rgba(255,255,255,0), transparent),linear-gradient(to top, rgba(255,255,255,1), rgba(255,255,255,0),rgba(255,255,255,0),rgba(255,255,255,0), transparent),linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,255,255,0),rgba(255,255,255,0), transparent)`,
+          backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.9),rgba(255,255,255,0.86),rgba(255,255,255,0), transparent),linear-gradient(to top, rgba(255,255,255,1), rgba(255,255,255,0),rgba(255,255,255,0),rgba(255,255,255,0), transparent),linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,255,255,0),rgba(255,255,255,0), transparent)`,
         }}
       >
         <Navbar />
@@ -73,19 +73,29 @@ const Home = () => {
           <Box
             sx={{
               textAlign: "left",
-              paddingLeft: "120px",
+              paddingLeft: "7vw",
               paddingTop: "0",
-              marginTop: "30px",
+              marginTop: "40px",
             }}
           >
             <Typography variant="h2" sx={{ fontWeight: "500" }}>
               {currentMovie && currentMovie.title}{" "}
               {/* Display current movie title */}
             </Typography>
-            <Typography variant="subtitle1" sx={{ width: "40%" }}>
+            <Typography
+              variant="subtitle1"
+              sx={{
+                width: "40%",
+                height: "15vh",
+                overflow: "hidden",
+              }}
+            >
               {currentMovie && currentMovie.description}{" "}
             </Typography>
-            <Typography variant="subtitle1" sx={{ fontWeight: "500" }}>
+            <Typography
+              variant="subtitle1"
+              sx={{ fontWeight: "500", marginTop: "10px" }}
+            >
               {" "}
               {currentMovie && currentMovie.genre} |{" "}
               {currentMovie && currentMovie.language}{" "}
@@ -101,12 +111,12 @@ const Home = () => {
           <ImageSlider
             movies={movies}
             onMovieClick={handleMovieClick}
-            sx={{ marginTop: "100px" }}
+            sx={{ marginBottom: "0px" }}
           />
         </Grid>
       </Grid>{" "}
       <MovieRow movies={movies} />
-    </div>
+    </Box>
   );
 };
 

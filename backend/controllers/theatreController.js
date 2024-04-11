@@ -20,10 +20,26 @@ exports.createTheatre = catchAsyncError(async (req, res, next) => {
 // Function to update a theatre by ID
 exports.updateTheatre = catchAsyncError(async (req, res, next) => {
   const { id } = req.params;
-  const { name, location, capacity, ticketPrice, showTimes } = req.body;
+  const {
+    name,
+    location,
+    capacity,
+    ticketPrice,
+    showTimes,
+    seatingPattern,
+    footpaths,
+  } = req.body;
   const theatre = await Theatre.findByIdAndUpdate(
     id,
-    { name, location, capacity, ticketPrice, showTimes },
+    {
+      name,
+      location,
+      capacity,
+      ticketPrice,
+      showTimes,
+      seatingPattern,
+      footpaths,
+    },
     {
       new: true,
       runValidators: true,

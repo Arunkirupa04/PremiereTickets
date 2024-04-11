@@ -39,5 +39,17 @@ export const Colors = {
   grey: "#BEBEBE",
   platinum: "#E5E4E2",
 
+  //bg
+  creme: "#FEF5EA", //orange shade
+  CloudWisp: "#E7F6FF", //blue shade
+  ColdSteel: "#E3EDF8", //blue shade
+  LavenderWhip: "#FAF5FF", //violet shade
+
+  //white shades
+  BoneWhite: "#F9F6EE",
+  Snow: "#FFFAFA",
+  AntiFlesh: "#FAFAFA",
+  Ivory: "#FFFFFA",
+
   bg: "#fffafa",
 };

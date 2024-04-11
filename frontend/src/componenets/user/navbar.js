@@ -23,13 +23,13 @@ const Navbar = () => {
         <img
           src={logo}
           alt="Logo"
-          style={{ width: 90, marginLeft: 100, marginTop: 4 }}
+          style={{ width: 90, marginLeft: "7vw", marginTop: 4 }}
         />
         <Typography
           sx={{
             marginTop: "auto",
             marginLeft: "10px",
-            fontWeight: "500",
+            // fontWeight: "500",
             fontSize: 14,
           }}
         >
