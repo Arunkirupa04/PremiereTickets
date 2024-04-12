@@ -20,6 +20,7 @@ const MovieCard = ({ id, title, img, language, genre }) => {
         ":hover": {
           bgcolor: Colors.dovegrey,
           boxShadow: "0px 10px 33px rgba(0, 0, 0, 0.3)",
+          transform: "scale(1.015)", // Correct property for applying scaling
         },
       }}
       variant="outlined"

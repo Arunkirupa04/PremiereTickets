@@ -4,6 +4,7 @@ import { Colors } from "../../theme";
 import Navbar from "./navbar";
 import { useParams } from "react-router-dom";
 import { getMovie, getTheatresAndShows } from "../../actions/user/showsAction";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const ShowPageUser = () => {
   const { movieId } = useParams();
@@ -11,6 +12,7 @@ const ShowPageUser = () => {
     useState({});
   const [movieData, setMovieData] = useState({});
   const [currentDate, setCurrentDate] = useState("");
+  const navigate = useNavigate(); // Create history instance
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,6 +58,10 @@ const ShowPageUser = () => {
     fetchData();
   }, [movieId]);
 
+  const handleShowClick = (theatreId, showId) => {
+    // Navigate to the seating page with necessary data
+    navigate(`/seating/${showId}`, { state: { theatreId: theatreId } });
+  };
   return (
     <div>
       <Navbar />
@@ -150,6 +156,9 @@ const ShowPageUser = () => {
                       {theatreData.shows.map((showDetail, index) => (
                         <Box
                           key={index}
+                          onClick={() =>
+                            handleShowClick(theatreId, showDetail.show._id)
+                          }
                           sx={{
                             backgroundColor: Colors.dovegrey,
                             width: "80px",
@@ -159,11 +168,11 @@ const ShowPageUser = () => {
                             cursor: "pointer",
                           }}
                           // Optional: onClick handler to do something when a show time is clicked
-                          onClick={() =>
-                            console.log(
-                              `Selected show ID: ${showDetail.show._id}`
-                            )
-                          }
+                          // onClick={() =>
+                          //   console.log(
+                          //     `Selected show ID: ${showDetail.show._id}`
+                          //   )
+                          // }
                         >
                           {showDetail.show.time}{" "}
                           {/* Accessing the time property of each show */}

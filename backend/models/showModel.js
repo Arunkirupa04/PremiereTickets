@@ -24,6 +24,20 @@ const showSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    availableSeats: [
+      {
+        // Stores available seats as objects with row and col properties
+        row: Number,
+        col: Number,
+      },
+    ],
+    bookedSeats: [
+      {
+        // Stores available seats as objects with row and col properties
+        row: Number,
+        col: Number,
+      },
+    ],
   },
   { timestamps: true }
 );

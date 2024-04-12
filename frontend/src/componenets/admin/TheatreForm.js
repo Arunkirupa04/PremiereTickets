@@ -70,6 +70,7 @@ const CombinedTheatreForm = () => {
         seatingPattern,
         footpaths,
       };
+      console.log("complete Data", completeData);
       await createTheatre(completeData);
       setFormData({
         name: "",
@@ -154,11 +155,6 @@ const CombinedTheatreForm = () => {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={12}>
-              <Button type="submit" variant="contained" color="primary">
-                Add Theatre
-              </Button>
-            </Grid>
           </Grid>
           {/* Theatre details inputs */}
           {/* Existing inputs for name, capacity, etc. here */}
@@ -231,7 +227,12 @@ const CombinedTheatreForm = () => {
             ))}
           </Grid>
         </Grid>
-        <Button type="submit" variant="contained" color="primary">
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          sx={{ my: "10px" }}
+        >
           Add Theatre
         </Button>
       </form>

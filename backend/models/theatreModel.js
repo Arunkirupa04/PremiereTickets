@@ -34,12 +34,36 @@ const theatreSchema = new mongoose.Schema(
     },
     footpaths: {
       type: [Number], // Array of column indices after which footpaths occur
-      required: false, // This can be optional as not all theatres might have footpaths
     },
-    // You can add more attributes as needed
+    availableSeats: [
+      {
+        // Stores available seats as objects with row and col properties
+        row: Number,
+        col: Number,
+      },
+    ],
   },
   { timestamps: true }
 );
+
+// Method to update available seats based on the seating pattern
+theatreSchema.methods.updateAvailableSeats = function () {
+  this.availableSeats = []; // Clear the current available seats
+  this.seatingPattern.forEach((row, rowIndex) => {
+    row.forEach((seat, colIndex) => {
+      if (seat === 1) {
+        // If the seat is available (1)
+        this.availableSeats.push({ row: rowIndex, col: colIndex });
+      }
+    });
+  });
+};
+
+// Ensure the available seats are updated before saving
+theatreSchema.pre("save", function (next) {
+  this.updateAvailableSeats();
+  next();
+});
 
 const Theatre = mongoose.model("Theatre", theatreSchema);
 

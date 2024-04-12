@@ -6,13 +6,23 @@ const ErrorHandler = require("../utils/errorHandler");
 
 // Function to create a new theatre
 exports.createTheatre = catchAsyncError(async (req, res, next) => {
-  const { name, capacity, ticketPrice, showTimes, location } = req.body;
+  const {
+    name,
+    capacity,
+    ticketPrice,
+    showTimes,
+    location,
+    seatingPattern,
+    footpaths,
+  } = req.body;
   const theatre = await Theatre.create({
     name,
     location,
     capacity,
     ticketPrice,
     showTimes,
+    seatingPattern,
+    footpaths,
   });
   res.status(201).json({ success: true, data: theatre });
 });
@@ -102,3 +112,29 @@ exports.getAllTheatresWithShowsAndMovies = catchAsyncError(
     }
   }
 );
+// Assuming you have a Theatre model which includes a seatingPattern field
+exports.fetchSeating = catchAsyncError(async (req, res, next) => {
+  try {
+    let id = req.params.theatreId;
+    id = id.replace(/\/$/, ""); // Remove trailing backslash if present
+    const theatre = await Theatre.findById(id).populate(
+      "seatingPattern footpaths"
+    );
+    if (!theatre) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Theatre not found" });
+    }
+    res.status(200).json({
+      success: true,
+      data: {
+        name: theatre.name,
+        ticketPrice: theatre.ticketPrice,
+        seatingPattern: theatre.seatingPattern,
+        footpaths: theatre.footpaths,
+      },
+    }); // Returning the entire theatre object
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});

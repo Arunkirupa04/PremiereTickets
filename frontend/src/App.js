@@ -3,15 +3,13 @@ import { ThemeProvider } from "@emotion/react";
 import theme from "./theme";
 import AdminDashboard from "./adminDashboard";
 import Home from "./componenets/user/home";
-import ShowsPage from "./componenets/user/ShowPage";
-import Theatres from "./componenets/admin/Theatre"; // Corrected path
-import Movies from "./componenets/admin/Movie"; // Corrected path
-import Shows from "./componenets/admin/shows"; // Corrected path
 import MoviePage from "./pages/admin/moviePage";
 import TheatrePage from "./pages/admin/theatrePage";
 import ShowPage from "./pages/admin/showPage";
 import ShowPageUser from "./componenets/user/ShowPage";
 import SeatingPatternCreator from "./componenets/admin/theatreSeat";
+import SeatingPage from "./componenets/user/seatingPage";
+
 function App() {
   return (
     <ThemeProvider theme={theme}>
@@ -29,6 +27,7 @@ function App() {
           <Route path="/admin/theatres" element={<TheatrePage />} />
           <Route path="/admin/movies" element={<MoviePage />} />
           <Route path="/showPage/:movieId" element={<ShowPageUser />} />
+          <Route path="/seating/:theatreId" element={<SeatingPage />} />
           <Route path="/seat" element={<SeatingPatternCreator />} />
         </Routes>
       </Router>

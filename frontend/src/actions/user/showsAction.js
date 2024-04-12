@@ -25,3 +25,21 @@ export const getMovie = async (movieId) => {
     throw error;
   }
 };
+
+// Fetch Seating Pattern Action
+export const fetchSeatingPattern = async (theatreId) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:5000/api/theatre/${theatreId}/seating`
+    );
+    if (response.status === 200) {
+      return response.data.data; // return the seating pattern directly
+    } else {
+      console.error("Failed to fetch seating pattern: ", response.status);
+      return null; // handle errors as needed
+    }
+  } catch (error) {
+    console.error("Error fetching seating pattern: ", error);
+    return null; // handle errors as needed
+  }
+};

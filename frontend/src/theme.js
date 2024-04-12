@@ -11,7 +11,9 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: "Roboto, sans-serif", // Example font family
+    fontFamily: "Poppins, sans-serif",
+
+    // fontFamily: "Roboto, sans-serif", // Example font family
   },
   // You can customize other theme properties here
 });

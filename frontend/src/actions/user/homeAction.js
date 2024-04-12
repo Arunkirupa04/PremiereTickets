@@ -13,3 +13,17 @@ export const fetchAllMovies = async () => {
     return null;
   }
 };
+
+export const fetchFeaturedMovies = async () => {
+  try {
+    const response = await fetch("http://localhost:5000/api/movie/featured");
+    if (!response.ok) {
+      throw new Error("Failed to fetch movies");
+    }
+    const sliderMovies = await response.json();
+    return sliderMovies; // Assuming the response data is in JSON format
+  } catch (error) {
+    console.error("Error fetching movies:", error);
+    return null;
+  }
+};

@@ -3,10 +3,14 @@ import { Grid, Box, Typography, Button } from "@mui/material";
 import Navbar from "./navbar";
 import ImageSlider from "./imageSlider";
 import MovieRow from "./CardCollection";
-import { fetchAllMovies } from "../../actions/user/homeAction"; // Adjust the path accordingly
+import {
+  fetchAllMovies,
+  fetchFeaturedMovies,
+} from "../../actions/user/homeAction"; // Adjust the path accordingly
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
+  const [moviesSlider, setMoviesSlider] = useState([]);
   const [currentMovie, setCurrentMovie] = useState(null); // State for the current movie
   const [imageUrl, setImageUrl] = useState(
     "https://w0.peakpx.com/wallpaper/144/660/HD-wallpaper-official-spider-man-no-way-home-poster.jpg"
@@ -24,9 +28,12 @@ const Home = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       const data = await fetchAllMovies();
+      const sliderMovies = await fetchFeaturedMovies();
       console.log(data.data);
+      console.log(sliderMovies);
       if (data) {
         setMovies(data.data);
+        setMoviesSlider(sliderMovies.data);
         if (data.data.length > 0) {
           setCurrentMovie(data.data[0]); // Set the first movie as the current movie initially
         }
@@ -36,7 +43,7 @@ const Home = () => {
   }, []);
 
   return (
-    <Box sx={{}}>
+    <Box>
       <Grid container spacing={0}>
         <Grid
           item
@@ -78,7 +85,7 @@ const Home = () => {
               marginTop: "40px",
             }}
           >
-            <Typography variant="h2" sx={{ fontWeight: "500" }}>
+            <Typography variant="h2" sx={{ fontWeight: "700" }}>
               {currentMovie && currentMovie.title}{" "}
               {/* Display current movie title */}
             </Typography>
@@ -86,7 +93,7 @@ const Home = () => {
               variant="subtitle1"
               sx={{
                 width: "40%",
-                height: "15vh",
+                height: "8vh",
                 overflow: "hidden",
               }}
             >
@@ -109,7 +116,7 @@ const Home = () => {
             </Button>
           </Box>
           <ImageSlider
-            movies={movies}
+            movies={moviesSlider}
             onMovieClick={handleMovieClick}
             sx={{ marginBottom: "0px" }}
           />

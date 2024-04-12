@@ -6,6 +6,7 @@ const {
   deleteTheatre,
   getAllTheatres,
   getAllTheatresWithShowsAndMovies,
+  fetchSeating,
 } = require("../controllers/theatreController");
 const {
   createShow,
@@ -22,6 +23,7 @@ router.route("/").post(createTheatre); // Create a new theatre
 router.route("/:id").delete(deleteTheatre); // Delete a theatre by ID
 router.route("/").get(getAllTheatres); // Get all theatres
 router.route("/:id").put(updateTheatre); // Update a theatre by ID
+router.route("/:theatreId/seating").get(fetchSeating); //
 router.route("/:theatreId/shows").post(createShow);
 router.route("/:theatreId/shows").get(getAllShowsForTheatre);
 router.route("/:theatreId/shows/:showId").get(getShowForTheatre);

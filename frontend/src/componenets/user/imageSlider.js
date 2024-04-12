@@ -71,10 +71,13 @@ const ImageSlider = ({ movies, onMovieClick }) => {
           <Box
             key={movie._id}
             onClick={() => handleMovieClick(movie._id)}
-            sx={{ padding: "20px" }}
+            sx={{
+              padding: "25px",
+              "&:focus": {
+                outline: "none",
+              },
+            }}
           >
-            {" "}
-            {/* Add onClick event handler */}
             <img
               src={movie.posterURL}
               alt={movie.title}
@@ -88,7 +91,7 @@ const ImageSlider = ({ movies, onMovieClick }) => {
               }}
               onMouseOver={(e) => {
                 e.currentTarget.style.boxShadow = "0 0 10px rgba(0,0,0,0.8)"; // Change boxShadow on hover
-                e.currentTarget.style.transform = "scale(1.1)"; // Scale effect on hover
+                e.currentTarget.style.transform = "scale(1.15)"; // Scale effect on hover
               }}
               onMouseOut={(e) => {
                 e.currentTarget.style.boxShadow = "rgba(0,0,0,1)"; // Reset boxShadow on mouse out

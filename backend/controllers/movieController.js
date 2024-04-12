@@ -111,3 +111,9 @@ exports.findMovieById = catchAsyncError(async (req, res, next) => {
   }
   res.status(200).json({ success: true, movie });
 });
+
+// Function to get all featured movies
+exports.getFeaturedMovies = catchAsyncError(async (req, res, next) => {
+  const featuredMovies = await Movie.find({ featured: true }); // Filtering condition
+  res.status(200).json({ success: true, data: featuredMovies });
+});

@@ -13,6 +13,7 @@ exports.createShow = catchAsyncError(async (req, res, next) => {
   if (!theatreDoc) {
     return res.status(404).json({ success: false, error: "Theatre not found" });
   }
+  const availableSeats = theatreDoc.availableSeats;
 
   const createdShows = [];
 
@@ -27,6 +28,7 @@ exports.createShow = catchAsyncError(async (req, res, next) => {
         date: dateItem,
         time: timeItem,
         theatre: theatreId,
+        availableSeats: availableSeats,
         movie,
       };
       const show = await Show.create(showData);
