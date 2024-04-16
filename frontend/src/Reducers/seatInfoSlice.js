@@ -5,6 +5,7 @@ export const seatsSlice = createSlice({
   name: "seats",
   initialState: {
     selectedSeats: [],
+    count: 0,
   },
   reducers: {
     selectSeat: (state, action) => {
@@ -18,6 +19,9 @@ export const seatsSlice = createSlice({
       } else {
         state.selectedSeats.push({ row, col }); // Add seat if not selected
       }
+      const { count } = action.payload;
+
+      state.count = count;
     },
     resetSeats: (state) => {
       state.selectedSeats = [];

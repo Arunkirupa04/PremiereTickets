@@ -2,24 +2,20 @@ import React, { useState, useEffect } from "react";
 import { fetchSeatingPattern } from "../../actions/user/showsAction";
 import { Paper, Box, Grid, Button, Stack } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
-import { useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { selectSeat } from "../../Reducers/seatInfoSlice";
 
 const SeatingPage = () => {
   const [seatingPattern, setSeatingPattern] = useState([]);
   const [footpaths, setFootpaths] = useState([]);
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const [selectedSeatCount, setSelectedSeatCount] = useState(0);
 
-  // const selectedSeats = useSelector((state) => state.seats.selectedSeats);
   const dispatch = useDispatch();
-
-  const navigate = useNavigate(); // Create history instance
+  const navigate = useNavigate();
   const location = useLocation();
-  const { theatreId } = location.state || {}; // Destructure `theatreId` from state, provide empty object as fallback
-
-  //   const theatreId = "6618bcf3b75690ac09a8ae17";
+  const { theatreId } = location.state || {};
 
   useEffect(() => {
     const fetchPattern = async () => {
@@ -35,41 +31,39 @@ const SeatingPage = () => {
     fetchPattern();
   }, [theatreId]);
 
-  // Toggle seat selection
   const toggleSeatSelection = (rowIndex, colIndex) => {
     const updatedSelection = [...selectedSeats];
     const seatIndex = updatedSelection.findIndex(
       (seat) => seat.row === rowIndex && seat.col === colIndex
     );
+
     if (seatIndex >= 0) {
-      // Seat already selected, remove it
       updatedSelection.splice(seatIndex, 1);
     } else {
-      // Seat not selected, add it
       updatedSelection.push({ row: rowIndex, col: colIndex });
     }
-    setSelectedSeats(updatedSelection);
-    dispatch(selectSeat(updatedSelection));
 
-    console.log(updatedSelection);
+    setSelectedSeats(updatedSelection);
+    setSelectedSeatCount(updatedSelection.length); // Update seat count
+    dispatch(
+      selectSeat({ seats: updatedSelection, count: updatedSelection.length })
+    );
   };
 
-  // Check if seat is selected
   const isSeatSelected = (rowIndex, colIndex) => {
     return selectedSeats.some(
       (seat) => seat.row === rowIndex && seat.col === colIndex
     );
   };
 
-  // Convert row index to an alphabet label
   const getRowLabel = (rowIndex) => {
     return String.fromCharCode(65 + rowIndex);
   };
 
   const handleProceedClick = () => {
-    // Navigate to the payment page
-    navigate("/payment");
+    navigate("/disclaimer");
   };
+
   return (
     <Box
       sx={{
@@ -89,11 +83,7 @@ const SeatingPage = () => {
                 item
                 xs={12}
                 key={rowIndex}
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
+                style={{ display: "flex", justifyContent: "center" }}
               >
                 <Paper
                   elevation={0}
@@ -109,20 +99,18 @@ const SeatingPage = () => {
                       width: 25,
                       height: 25,
                       border: "solid 1px",
-                      borderColor: seat == 1 ? "grey" : "transparent",
+                      borderColor: seat === 1 ? "grey" : "transparent",
                       backgroundColor: isSeatSelected(rowIndex, colIndex)
                         ? "lightblue"
                         : "transparent",
                       marginRight: footpaths.includes(colIndex + 1)
                         ? "16px"
                         : "4px",
-                      marginBottom: "4px",
                       cursor: "pointer",
-                      color: seat == 1 ? "grey[500]" : "transparent",
                     }}
                     onClick={() => toggleSeatSelection(rowIndex, colIndex)}
                   >
-                    {colIndex + 1}
+                    {seat === 1 ? colIndex + 1 : ""}
                   </Paper>
                 ))}
               </Grid>

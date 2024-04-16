@@ -17,10 +17,12 @@ const MovieCard = ({ id, title, img, language, genre }) => {
         transition: "0.7s ease",
         padding: "10px",
         cursor: "pointer",
+        filter: "Grayscale(50%)",
         ":hover": {
           bgcolor: Colors.dovegrey,
           boxShadow: "0px 10px 33px rgba(0, 0, 0, 0.3)",
-          transform: "scale(1.015)", // Correct property for applying scaling
+          transform: "scale(1.015)",
+          filter: "Grayscale(0%)",
         },
       }}
       variant="outlined"

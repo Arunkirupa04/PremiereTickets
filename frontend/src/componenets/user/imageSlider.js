@@ -86,16 +86,19 @@ const ImageSlider = ({ movies, onMovieClick }) => {
                 height: "200px",
                 borderRadius: "12px",
                 boxShadow: "rgba(0,0,0,1)",
-                transition: "box-shadow 0.3s ease, transform 0.3s ease", // Transition effect for boxShadow and transform
+                filter: "Grayscale(30%)",
+                transition: "0.3s ease, transform 0.3s ease", // Transition effect for boxShadow and transform
                 cursor: "pointer", // Change cursor on hover
               }}
               onMouseOver={(e) => {
                 e.currentTarget.style.boxShadow = "0 0 10px rgba(0,0,0,0.8)"; // Change boxShadow on hover
                 e.currentTarget.style.transform = "scale(1.15)"; // Scale effect on hover
+                e.currentTarget.style.filter = "Grayscale(0%)";
               }}
               onMouseOut={(e) => {
                 e.currentTarget.style.boxShadow = "rgba(0,0,0,1)"; // Reset boxShadow on mouse out
                 e.currentTarget.style.transform = "scale(1)"; // Reset scale on mouse out
+                e.currentTarget.style.filter = "Grayscale(30%)";
               }}
             />
           </Box>

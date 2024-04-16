@@ -5,6 +5,10 @@ import Navbar from "./navbar";
 import { useParams } from "react-router-dom";
 import { getMovie, getTheatresAndShows } from "../../actions/user/showsAction";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useDispatch } from "react-redux";
+import { setShowDetails } from "../../Reducers/showSlice";
+import { setTheatreDetails } from "../../Reducers/theatreSlice";
+import { setMovieDetails } from "../../Reducers/movieSlice"; // Import the action
 
 const ShowPageUser = () => {
   const { movieId } = useParams();
@@ -13,6 +17,7 @@ const ShowPageUser = () => {
   const [movieData, setMovieData] = useState({});
   const [currentDate, setCurrentDate] = useState("");
   const navigate = useNavigate(); // Create history instance
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,6 +26,7 @@ const ShowPageUser = () => {
         const showsData = showsResponse.data;
         const movieResponse = await getMovie(movieId);
         setMovieData(movieResponse.movie);
+        dispatch(setMovieDetails(movieResponse.movie)); // Dispatch action to set movie details in the store
 
         // Process showsData to group by date and then by theatre
         const groupedByDateAndTheatre = showsData.reduce((acc, show) => {
@@ -38,6 +44,8 @@ const ShowPageUser = () => {
           if (!acc[showDate][theatreId]) {
             acc[showDate][theatreId] = {
               name: show.theatreDetails.name,
+              location: show.theatreDetails.location,
+              ticketPrice: show.theatreDetails.ticketPrice,
               shows: [],
             };
           }
@@ -56,12 +64,37 @@ const ShowPageUser = () => {
     };
 
     fetchData();
-  }, [movieId]);
+  }, [movieId, dispatch]);
 
   const handleShowClick = (theatreId, showId) => {
-    // Navigate to the seating page with necessary data
+    const selectedTheatre =
+      groupedShowsByDateAndTheatre[currentDate][theatreId];
+    const selectedShow = selectedTheatre.shows.find(
+      (show) => show.show._id === showId
+    );
+
+    // Dispatch the actions
+    dispatch(
+      setTheatreDetails({
+        name: selectedTheatre.name,
+        location: selectedTheatre.location, // Assuming location is part of the data
+        ticketPrice: selectedTheatre.ticketPrice, // Assuming ticketPrice is part of the data
+        showTimes: selectedTheatre.shows.map((show) => show.show.time),
+      })
+    );
+
+    dispatch(
+      setShowDetails({
+        date: currentDate,
+        time: selectedShow.show.time,
+        movieId: movieId,
+      })
+    );
+
+    // Navigate to the seating page
     navigate(`/seating/${showId}`, { state: { theatreId: theatreId } });
   };
+
   return (
     <div>
       <Navbar />
