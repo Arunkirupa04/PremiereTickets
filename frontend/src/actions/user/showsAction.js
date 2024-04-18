@@ -43,3 +43,15 @@ export const fetchSeatingPattern = async (theatreId) => {
     return null; // handle errors as needed
   }
 };
+
+export const getShow = async (showId) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:5000/api/theatre/${showId}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching theatres and shows:", error);
+    throw error;
+  }
+};

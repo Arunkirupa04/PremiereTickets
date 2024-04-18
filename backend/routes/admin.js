@@ -11,7 +11,7 @@ const {
 
 const router = express.Router();
 
-router.route("/admin/register").post(addNewAdmin);
+router.route("/admin/register").post(isAuthenticatedUser, addNewAdmin);
 router.route("/admin/login").post(loginAdmin);
 router.route("/admin/logout").post(logoutAdmin);
 

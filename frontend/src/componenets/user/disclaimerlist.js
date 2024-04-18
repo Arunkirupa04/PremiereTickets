@@ -1,5 +1,6 @@
 import React from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, colors } from "@mui/material";
+import { grey } from "@mui/material/colors";
 
 const disclaimerPoints = [
   "Please arrive at least 15 minutes before the show.",
@@ -18,10 +19,25 @@ const disclaimerPoints = [
 
 const DisclaimerList = () => {
   return (
-    <Box sx={{ width: "66.66%", p: 2 }}>
+    <Box
+      sx={{
+        p: 2,
+        // m: 2,
+        border: "1px solid",
+        borderRadius: "6px",
+        bgcolor: grey[100],
+        borderColor: grey[500],
+        minHeight: "100%",
+      }}
+    >
       <Typography variant="h5">Important Information</Typography>
       {disclaimerPoints.map((point, index) => (
-        <Typography key={index} variant="body1" sx={{ mt: 1 }}>
+        <Typography
+          key={index}
+          variant="body1"
+          color={grey[800]}
+          sx={{ mt: 1, fontWeight: 300 }}
+        >
           {index + 1}. {point}
         </Typography>
       ))}

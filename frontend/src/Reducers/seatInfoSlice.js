@@ -1,4 +1,3 @@
-// src/store/seatsSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 export const seatsSlice = createSlice({
@@ -9,22 +8,22 @@ export const seatsSlice = createSlice({
   },
   reducers: {
     selectSeat: (state, action) => {
-      // Add or remove seat based on whether it's already selected
       const { row, col } = action.payload;
+      const { seats } = action.payload;
       const index = state.selectedSeats.findIndex(
         (seat) => seat.row === row && seat.col === col
       );
-      if (index >= 0) {
-        state.selectedSeats.splice(index, 1); // Remove seat if already selected
-      } else {
-        state.selectedSeats.push({ row, col }); // Add seat if not selected
-      }
-      const { count } = action.payload;
 
+      state.selectedSeats = seats;
+      const { count } = action.payload;
+      // Automatically update count
       state.count = count;
+
+      console.log("Updated state after:", state.selectedSeats);
     },
     resetSeats: (state) => {
       state.selectedSeats = [];
+      state.count = 0;
     },
   },
 });

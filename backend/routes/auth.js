@@ -13,6 +13,7 @@ const {
   isAuthenticatedUser,
   authorizeRoles,
 } = require("../middlewares/authenticate");
+const { sendOTP, verifyOTP } = require("../controllers/otpController");
 const router = express.Router();
 
 router.route("/register").post(registerUser);
@@ -23,5 +24,7 @@ router.route("/password/reset/:token").post(resetPassword);
 router.route("/password/change").put(isAuthenticatedUser, changePassword);
 // router.route("/myprofile").get(isAuthenticatedUser, getUserProfile);
 router.route("/update").put(isAuthenticatedUser, updateProfile);
+router.route("/sendotp").post(sendOTP);
+router.route("/verifyotp").post(verifyOTP);
 
 module.exports = router;

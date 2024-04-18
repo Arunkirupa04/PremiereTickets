@@ -13,8 +13,18 @@ import MovieIcon from "@mui/icons-material/Movie";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import BookIcon from "@mui/icons-material/Book";
 import logo from "../../Assets/logoPT.png";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp"; // Import logout icon
+import { useNavigate } from "react-router-dom";
 
 const SideDrawer = () => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("isAdminAuthenticated");
+    localStorage.removeItem("userRole");
+
+    navigate("/admin/login"); // Use React Router for navigation without a full reload
+  };
+
   return (
     <Drawer
       sx={{
@@ -29,7 +39,12 @@ const SideDrawer = () => {
       anchor="left"
     >
       <Box>
-        <img width={"50%"} src={logo} style={{ marginLeft: "40px" }} />
+        <img
+          width={"50%"}
+          src={logo}
+          style={{ marginLeft: "40px", marginTop: "20px" }}
+          alt="Logo"
+        />
       </Box>
       <List>
         {[
@@ -60,9 +75,14 @@ const SideDrawer = () => {
             <ListItemText primary={item.text} />
           </ListItem>
         ))}
+        <ListItem button onClick={handleLogout} sx={{ mt: 2 }}>
+          <ListItemIcon>
+            <ExitToAppIcon />
+          </ListItemIcon>
+          <ListItemText primary="Logout" />
+        </ListItem>
       </List>
     </Drawer>
   );
 };
-
 export default SideDrawer;

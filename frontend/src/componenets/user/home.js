@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Grid, Box, Typography, Button } from "@mui/material";
-import Navbar from "./navbar";
+import NavbarHome from "./navbarHome";
 import ImageSlider from "./imageSlider";
 import MovieRow from "./CardCollection";
 import {
@@ -74,7 +74,7 @@ const Home = () => {
           backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.9),rgba(255,255,255,0.86),rgba(255,255,255,0), transparent),linear-gradient(to top, rgba(255,255,255,1), rgba(255,255,255,0),rgba(255,255,255,0),rgba(255,255,255,0), transparent),linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,255,255,0),rgba(255,255,255,0), transparent)`,
         }}
       >
-        <Navbar />
+        <NavbarHome />
         <Grid item xs={12} md={12}>
           {" "}
           <Box
@@ -87,10 +87,18 @@ const Home = () => {
           >
             <Typography variant="h2" sx={{ fontWeight: "700" }}>
               {currentMovie && currentMovie.title}{" "}
-              {/* Display current movie title */}
+            </Typography>{" "}
+            <Typography
+              variant="subtitle1"
+              sx={{ fontWeight: "400", marginTop: "10px" }}
+            >
+              {" "}
+              {currentMovie && currentMovie.genre} |{" "}
+              {currentMovie && currentMovie.language}{" "}
             </Typography>
             <Typography
               variant="subtitle1"
+              color="textSecondary"
               sx={{
                 width: "40%",
                 height: "8vh",
@@ -98,14 +106,6 @@ const Home = () => {
               }}
             >
               {currentMovie && currentMovie.description}{" "}
-            </Typography>
-            <Typography
-              variant="subtitle1"
-              sx={{ fontWeight: "500", marginTop: "10px" }}
-            >
-              {" "}
-              {currentMovie && currentMovie.genre} |{" "}
-              {currentMovie && currentMovie.language}{" "}
             </Typography>
             <Button
               variant="contained"

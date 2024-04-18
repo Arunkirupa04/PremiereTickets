@@ -3,7 +3,7 @@ import { ThemeProvider } from "@emotion/react";
 import { StripeProvider, Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import theme from "./theme";
-import AdminDashboard from "./adminDashboard";
+import AdminDashboard from "./pages/admin/dashboardPage";
 import Home from "./componenets/user/home";
 import MoviePage from "./pages/admin/moviePage";
 import TheatrePage from "./pages/admin/theatrePage";
@@ -14,6 +14,10 @@ import SeatingPage from "./componenets/user/seatingPage";
 import PaymentForm from "./componenets/user/payment";
 import DisclaimerPage from "./componenets/user/disclaimerPage";
 import SuccessPage from "./componenets/user/bookingSuccess";
+import ContactDetails from "./componenets/user/otpVarification";
+import ProtectedRoute from "./protecedRoutes";
+import AdminLogin from "./pages/admin/loginPage";
+import AdminRegister from "./pages/admin/registerPage";
 
 const stripePromise = loadStripe(
   "pk_test_51P4oPJ1OuO8iFaOrgbO8LjpEb1zFgbnR4iCIsxbwAALLYlxoof5C3JV1cty9SqhYTUbzFjOap8S7ZTtzt2R5GDQk00MFNtTDZ5"
@@ -24,21 +28,29 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <Routes>
-          <Route path="/admin/*" element={<AdminDashboard />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/register" element={<AdminRegister />} />
+          <Route
+            path="/admin/*"
+            element={
+              <ProtectedRoute>
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          >
+            <Route path="dashboard" element={<AdminDashboard />} />
+            <Route path="shows" element={<ShowPage />} />
+            <Route path="theatres" element={<TheatrePage />} />
+            <Route path="movies" element={<MoviePage />} />
+          </Route>
 
           <Route path="/" element={<Home />} />
-
-          {/* Route to Shows Page (Nested under Home) */}
-          <Route path="/admin/shows" element={<ShowPage />} />
-          {/* <Route exact path="/admin/" element={<Dashboard />} /> */}
-          <Route path="/admin/theatres" element={<TheatrePage />} />
-          <Route path="/admin/movies" element={<MoviePage />} />
           <Route path="/showPage/:movieId" element={<ShowPageUser />} />
           <Route path="/seating/:theatreId" element={<SeatingPage />} />
           <Route path="/disclaimer" element={<DisclaimerPage />} />
-          <Route path="/seat" element={<SeatingPatternCreator />} />
+          {/* <Route path="/seat" element={<SeatingPatternCreator />} /> */}
           <Route path="/success" element={<SuccessPage />} />
-
+          <Route path="/contact" element={<ContactDetails />} />
           <Route
             path="/payment"
             element={

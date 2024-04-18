@@ -16,25 +16,25 @@ import {
   Alert,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import BookingSummary from "./bookingSummary";
 import { useNavigate } from "react-router-dom";
+import TheatreBar from "./theatrebar";
+import { grey } from "@mui/material/colors";
+import { useSelector } from "react-redux";
 
 const StyledCardInput = styled(
-  ({ component: Component, options, ...props }) => {
-    return (
-      <TextField
-        {...props}
-        InputProps={{
-          ...props.InputProps,
-          inputComponent: React.forwardRef((inputProps, ref) => (
-            <Component onReady={ref} options={options} {...inputProps} />
-          )),
-        }}
-      />
-    );
-  }
+  ({ component: Component, options, ...props }) => (
+    <TextField
+      {...props}
+      InputProps={{
+        ...props.InputProps,
+        inputComponent: React.forwardRef((inputProps, ref) => (
+          <Component onReady={ref} options={options} {...inputProps} />
+        )),
+      }}
+    />
+  )
 )({
   "& .MuiInputBase-input": {
     fontSize: "16px",
@@ -76,20 +76,28 @@ const PaymentForm = () => {
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState("");
 
+  const seats = useSelector((state) => state.seats);
+  const show = useSelector((state) => state.show);
+  const user = useSelector((state) => state.user);
+  const theatre = useSelector((state) => state.theatre);
+
   const handleClose = () => {
     setOpen(false);
   };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!stripe || !elements) {
-      console.log("Stripe or Elements not loaded");
+      setMessage("Stripe or Elements not loaded");
+      setOpen(true);
       return;
     }
 
     const cardNumberElement = elements.getElement(CardNumberElement);
 
     if (!cardNumberElement) {
-      console.log("CardNumberElement not available");
+      setMessage("Card number element not available");
+      setOpen(true);
       return;
     }
 
@@ -98,112 +106,139 @@ const PaymentForm = () => {
         type: "card",
         card: cardNumberElement,
         billing_details: {
-          name: "John Doe",
+          name: user.email,
         },
       });
 
       if (paymentMethodResult.error) {
-        console.log(paymentMethodResult.error.message);
-        alert(paymentMethodResult.error.message); // Display an alert or use a snackbar for better UX
+        setMessage(paymentMethodResult.error.message);
+        setOpen(true);
       } else {
         const { error, token } = await stripe.createToken(cardNumberElement);
-
         if (error) {
-          console.log("Token creation error:", error.message);
-          alert(error.message); // Display an alert or use a snackbar for better UX
+          setMessage(error.message);
+          setOpen(true);
         } else {
           const response = await axios.post(
             "http://localhost:5000/api/booking/payment",
             {
               token: token.id,
               amount: 2000,
-            },
-            {
-              headers: {
-                "Content-Type": "application/json",
-              },
             }
           );
           const paymentResponse = response.data;
-          console.log(paymentResponse);
-
           if (paymentResponse.success) {
-            navigate("/success");
+            try {
+              const response = await axios.post(
+                "http://localhost:5000/api/booking/",
+                {
+                  theatre: theatre.theatreId,
+                  show: show.showId,
+                  user: "66142d4d8754abcf35c65274",
+                  seatNumbers: seats.selectedSeats,
+                }
+              );
+              const bookingResponse = response.data;
+
+              if (bookingResponse.success) {
+                navigate("/success");
+              } else {
+                setMessage(
+                  "Booking creation failed: " + bookingResponse.message
+                );
+                setOpen(true);
+              }
+            } catch (error) {
+              setMessage("Booking creation error: " + error.message);
+              setOpen(true);
+            }
           } else {
-            alert("Payment failed: " + paymentResponse.message); // Display an alert or use a snackbar for better UX
+            setMessage("Payment failed: " + paymentResponse.message);
+            setOpen(true);
           }
         }
       }
     } catch (error) {
-      console.error("Payment error:", error);
-      alert("An error occurred during the payment process."); // Display an alert or use a snackbar for better UX
+      console.log(error.message);
+      setMessage("Payment error: " + error.message);
+      setOpen(true);
     }
   };
 
   return (
-    <Grid container sx={{ paddingY: "15px" }}>
-      <Grid item md={8}>
-        <Box
-          sx={{ maxWidth: 400, m: "auto", p: 3, boxShadow: 3, borderRadius: 2 }}
-        >
-          <Typography variant="h6" gutterBottom>
-            Enter Payment Details
-          </Typography>
-          <form onSubmit={handleSubmit}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <StyledCardInput
-                  label="Card Number"
-                  variant="outlined"
-                  fullWidth
-                  component={CardNumberElement}
-                  InputProps={{ inputProps: { options: options } }}
-                />
+    <Box sx={{ bgcolor: grey[300], minHeight: "100vh", overflowX: "hidden" }}>
+      <TheatreBar />{" "}
+      <Grid container sx={{ padding: "15px" }}>
+        <Grid item md={6}>
+          <Box
+            sx={{
+              maxWidth: 400,
+              m: "auto",
+              p: 3,
+              boxShadow: 3,
+              borderRadius: 2,
+              bgcolor: "white",
+            }}
+          >
+            <Typography variant="h6" gutterBottom>
+              Enter Payment Details
+            </Typography>
+            <form onSubmit={handleSubmit}>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <StyledCardInput
+                    label="Card Number"
+                    variant="outlined"
+                    fullWidth
+                    component={CardNumberElement}
+                    InputProps={{ inputProps: { options: options } }}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <StyledCardInput
+                    label="Expiration Date"
+                    variant="outlined"
+                    fullWidth
+                    component={CardExpiryElement}
+                    InputProps={{ inputProps: { options: options } }}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <StyledCardInput
+                    label="CVC"
+                    variant="outlined"
+                    fullWidth
+                    component={CardCvcElement}
+                    InputProps={{ inputProps: { options: options } }}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField label="ZIP Code" variant="outlined" fullWidth />
+                </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    disabled={!stripe}
+                  >
+                    Pay Now
+                  </Button>
+                </Grid>
               </Grid>
-              <Grid item xs={6}>
-                <StyledCardInput
-                  label="Expiration Date"
-                  variant="outlined"
-                  fullWidth
-                  component={CardExpiryElement}
-                  InputProps={{ inputProps: { options: options } }}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <StyledCardInput
-                  label="CVC"
-                  variant="outlined"
-                  fullWidth
-                  component={CardCvcElement}
-                  InputProps={{ inputProps: { options: options } }}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField label="ZIP Code" variant="outlined" fullWidth />
-              </Grid>
-              <Grid item xs={12}>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  disabled={!stripe}
-                >
-                  Pay Now
-                </Button>
-              </Grid>
-            </Grid>
-          </form>
-        </Box>
+            </form>
+          </Box>
+        </Grid>
+        <Grid item md={4}>
+          <BookingSummary />
+        </Grid>
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+            {message}
+          </Alert>
+        </Snackbar>
       </Grid>
-      <Grid item md={4}>
-        <BookingSummary />
-      </Grid>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
-          {message}
-        </Alert>
-      </Snackbar>
-    </Grid>
+    </Box>
   );
 };
 

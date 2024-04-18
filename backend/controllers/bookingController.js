@@ -1,11 +1,54 @@
-const Booking = require("../models/bookingModel.js");
-const catchAsyncError = require("../middlewares/catchAsyncError.js");
 const QRCode = require("qrcode");
 
-// Function to create a new booking
+const Booking = require("../models/bookingModel.js");
+const Show = require("../models/showModel.js"); // Ensure you have imported the Show model
+const catchAsyncError = require("../middlewares/catchAsyncError.js");
+
+// Function to create a new booking and update the show details
 exports.createBooking = catchAsyncError(async (req, res) => {
   const { theatre, show, user, seatNumbers } = req.body;
+
+  // Retrieve the show from the database
+  const showInstance = await Show.findById(show);
+
+  if (!showInstance) {
+    return res.status(404).json({ success: false, message: "Show not found" });
+  }
+
+  // Check if any of the requested seats are already booked
+  const isSeatAlreadyBooked = seatNumbers.some((seat) => {
+    return showInstance.bookedSeats.some((bookedSeat) => {
+      return bookedSeat.row === seat.row && bookedSeat.col === seat.col;
+    });
+  });
+
+  if (isSeatAlreadyBooked) {
+    return res.status(400).json({
+      success: false,
+      message:
+        "One or more seats are already booked. Please select different seats.",
+    });
+  }
+
+  // Create the booking if seats are available
   const booking = await Booking.create({ theatre, show, user, seatNumbers });
+
+  // Update booked seats
+  const updatedBookedSeats = [
+    ...showInstance.bookedSeats,
+    ...seatNumbers.map((seat) => ({ row: seat.row, col: seat.col })),
+  ];
+
+  // Optionally, update the available seats if required
+  const updatedAvailableSeats = showInstance.availableSeats.filter(
+    (seat) => !seatNumbers.some((s) => s.row === seat.row && s.col === seat.col)
+  );
+
+  // Save the updated show instance
+  showInstance.bookedSeats = updatedBookedSeats;
+  showInstance.availableSeats = updatedAvailableSeats;
+  await showInstance.save();
+
   res.status(201).json({ success: true, data: booking });
 });
 

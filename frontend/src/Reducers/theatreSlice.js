@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const theatreSlice = createSlice({
   name: "theatre",
   initialState: {
+    theatreId: "",
     name: "",
     location: "",
     ticketPrice: 0,
@@ -10,7 +11,9 @@ export const theatreSlice = createSlice({
   },
   reducers: {
     setTheatreDetails: (state, action) => {
-      const { name, location, ticketPrice, showTimes } = action.payload;
+      const { theatreId, name, location, ticketPrice, showTimes } =
+        action.payload;
+      state.theatreId = theatreId;
       state.name = name;
       state.location = location;
       state.ticketPrice = ticketPrice;

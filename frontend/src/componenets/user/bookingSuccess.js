@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { Box, Typography, CircularProgress } from "@mui/material";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const SuccessPage = () => {
   const [qrCodeUrl, setQrCodeUrl] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [emailStatus, setEmailStatus] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const user = useSelector((state) => state.user);
+  const seats = useSelector((state) => state.seats);
+  const show = useSelector((state) => state.show);
 
   useEffect(() => {
     setIsLoading(true);
     axios
       .post("http://localhost:5000/api/booking/success", {
-        seatNumbers: "A1, A2, A3",
-        showId: "123456",
-        seatCount: 3,
-        userEmail: "arun@gmail.com",
-        userName: "John Doe",
+        seatNumbers: seats.selectedSeats,
+        showId: show.showId,
+        seatCount: seats.count,
+        userEmail: user.email,
+        // userName: "John Doe",
       })
       .then((response) => {
         setIsLoading(false);
@@ -27,6 +31,7 @@ const SuccessPage = () => {
           setErrorMessage(
             "Failed to complete the booking process: " + response.data.message
           );
+          console.log(response.data);
         }
       })
       .catch((error) => {

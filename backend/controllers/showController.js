@@ -75,6 +75,19 @@ exports.getShowForTheatre = catchAsyncError(async (req, res, next) => {
   res.status(200).json({ success: true, data: show });
 });
 
+// Function to get a specific show with ID
+exports.getShowWithId = catchAsyncError(async (req, res, next) => {
+  const { showId } = req.params;
+
+  // Assume "movie" and "theatre" are the correct fields to populate if those are the references.
+  const showObj = await Show.findById(showId);
+  if (!showObj) {
+    return res.status(404).json({ success: false, error: "Show not found" });
+  }
+
+  res.status(200).json({ success: true, data: showObj });
+});
+
 // Function to update a show for a specific theatre
 exports.updateShowForTheatre = catchAsyncError(async (req, res, next) => {
   let { theatreId, showId } = req.params;

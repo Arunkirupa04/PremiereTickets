@@ -17,10 +17,13 @@ const bookingSchema = new mongoose.Schema(
       ref: "User", // Reference to the user who made the booking
       required: true,
     },
-    seatNumbers: {
-      type: [Number],
-      required: [true, "Please enter the seat numbers booked"],
-    },
+    seatNumbers: [
+      {
+        // Stores available seats as objects with row and col properties
+        row: Number,
+        col: Number,
+      },
+    ],
     // You can add more attributes as needed
   },
   { timestamps: true }

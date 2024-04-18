@@ -1,42 +1,117 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Box, Typography, Button } from "@mui/material";
-import { useNavigate } from "react-router-dom"; // Import useNavigate hook
+import { Box, Typography, Divider, Grid, Stack } from "@mui/material";
+import { grey } from "@mui/material/colors";
 
 const BookingSummary = () => {
   const seats = useSelector((state) => state.seats);
   const theatre = useSelector((state) => state.theatre);
-  const navigate = useNavigate(); // Create an instance of useNavigate
 
-  const handlePaymentNavigation = () => {
-    navigate("/payment"); // Adjust '/payment' to the correct path for your payment page
-  };
+  // Helper function to convert row number to corresponding letter
+  const getRowLetter = (rowNumber) => String.fromCharCode(65 + rowNumber);
 
+  // Function to create a string of seat descriptions
+  const seatDescriptions = seats.selectedSeats
+    .map((seat) => `${getRowLetter(seat.row)}${seat.col + 1}`)
+    .join(", ");
+
+  useEffect(() => {
+    console.log(seats);
+  }, []);
   return (
     <Box
       sx={{
-        width: "100%",
         p: 2,
-        bgcolor: "background.paper",
-        borderLeft: "1px solid grey",
+        height: "85%",
+        border: "1px solid",
+        borderRadius: "6px",
+        bgcolor: grey[100],
+        borderColor: grey[500],
+        position: "relative",
       }}
     >
-      <Typography variant="h5">Booking Summary</Typography>
-      <Typography variant="body1">
-        Ticket Price: ${theatre.ticketPrice}
-      </Typography>
-      <Typography variant="body1">Count: {seats.count}</Typography>
-      <Typography variant="body1">
-        Total Amount: ${theatre.ticketPrice * seats.count}
-      </Typography>
-      <Button
-        variant="contained"
-        color="primary"
-        sx={{ mt: 2 }}
-        onClick={handlePaymentNavigation} // Add an onClick event handler
+      <Typography variant="h6">Booking Summary</Typography>
+      <Divider sx={{ marginY: "10px", borderColor: grey[500] }} />
+      <Grid container spacing={2}>
+        <Grid item md={6}>
+          <Typography
+            variant="subtitle2"
+            color={grey[700]}
+            sx={{ fontWeight: 300 }}
+          >
+            Seats
+          </Typography>
+        </Grid>
+        <Grid item md={6}>
+          <Box variant="subtitle2" color={grey[700]} sx={{ fontWeight: 300 }}>
+            {seatDescriptions}
+          </Box>
+        </Grid>
+        <Grid item md={6}>
+          <Typography
+            variant="subtitle2"
+            color={grey[700]}
+            sx={{ fontWeight: 300 }}
+          >
+            Ticket Price
+          </Typography>
+        </Grid>
+        <Grid item md={6}>
+          <Typography
+            variant="subtitle2"
+            color={grey[700]}
+            sx={{ fontWeight: 300 }}
+          >
+            {theatre.ticketPrice} LKR
+          </Typography>
+        </Grid>
+
+        <Grid item md={6}>
+          <Typography
+            variant="subtitle2"
+            color={grey[700]}
+            sx={{ fontWeight: 300 }}
+          >
+            Count
+          </Typography>
+        </Grid>
+        <Grid item md={6}>
+          <Typography
+            variant="subtitle2"
+            color={grey[700]}
+            sx={{ fontWeight: 300 }}
+          >
+            {seats.count}
+          </Typography>
+        </Grid>
+      </Grid>
+      <Stack
+        width={"90%"}
+        direction={"row"}
+        justifyContent="space-between"
+        sx={{
+          borderTop: "1px solid",
+          borderColor: grey[500],
+          position: "absolute",
+          bottom: 20,
+          pt: 1,
+        }}
       >
-        Proceed to Payment
-      </Button>
+        <Typography
+          variant="subtitle2"
+          color={grey[900]}
+          sx={{ fontWeight: 500 }}
+        >
+          Total Amount
+        </Typography>
+        <Typography
+          variant="subtitle2"
+          color={grey[900]}
+          sx={{ fontWeight: 500 }}
+        >
+          {theatre.ticketPrice * seats.count} LKR
+        </Typography>
+      </Stack>
     </Box>
   );
 };

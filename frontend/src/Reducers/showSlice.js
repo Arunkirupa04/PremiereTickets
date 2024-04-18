@@ -6,11 +6,13 @@ export const showSlice = createSlice({
     date: "",
     time: "",
     movieId: "",
+    showId: "",
   },
   reducers: {
     setShowDetails: (state, action) => {
-      const { date, time, movieId } = action.payload;
+      const { date, time, movieId, showId } = action.payload;
       state.date = date;
+      state.showId = showId;
       state.time = time;
       state.movieId = movieId;
     },

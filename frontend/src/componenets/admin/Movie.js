@@ -78,17 +78,6 @@ const Movies = () => {
   const handleCreateMovie = () => {
     setIsModalOpen(true);
   };
-  // const handleCreateMovie = async (movieData) => {
-  //   try {
-  //     setIsModalOpen(true);
-
-  //     await createMovie(movieData);
-  //     handleCloseModal();
-  //   } catch (error) {
-  //     console.error("Error creating movie:", error);
-  //   }
-  // };
-
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };

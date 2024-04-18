@@ -12,15 +12,11 @@ import MovieIcon from "@mui/icons-material/Movie";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import SearchIcon from "@mui/icons-material/Search";
 import logo from "../../Assets/logoPT.png";
-const Navbar = () => {
+const NavbarHome = () => {
   return (
     <AppBar
       position="static"
-      sx={{
-        bgcolor: "rgba(255, 255, 255, 1)",
-        boxShadow: "none",
-        height: "80px",
-      }}
+      sx={{ bgcolor: "rgba(255, 255, 255, 0)", boxShadow: "none" }}
     >
       <Toolbar>
         {/* Logo */}
@@ -57,4 +53,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavbarHome;
